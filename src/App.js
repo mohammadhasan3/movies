@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+//useStates
+import { useState } from "react";
+
+//Movie Array
+import movies from "./movies";
+
+//Components
+import Home from "./components/Home";
+import MovieList from "./components/MoviesList";
+import MovieDetails from "./components/MovieDetails";
+
+//Routing and Linking
+import { Route, Switch } from "react-router";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function App() {
+  const [_movies, setMovies] = useState();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Switch>
+        <Route path="/movies/:movieSlug">
+          <MovieDetails
+            movies={movies}
+            setMovies={setMovies}
+            _movies={_movies}
+          />
+        </Route>
+        <Route path="/movies">
+          <MovieList movies={movies} />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </>
   );
 }
 
